@@ -4,6 +4,8 @@ import SplashScreen from "../screens/SplashScreen";
 import HomeScreen from "../screens/HomeScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
+import TabNavigation from "./TabNavigation";
+import BookDetails from "../screens/BookDetails";
 
 const Stack = createNativeStackNavigator();
 const MainNavigation = () => {
@@ -25,8 +27,13 @@ const MainNavigation = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="BookDetailsScreen"
+        component={BookDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Tab"
+        component={TabNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

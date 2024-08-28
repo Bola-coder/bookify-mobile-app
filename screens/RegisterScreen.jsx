@@ -10,7 +10,7 @@ import React from "react";
 
 const RegisterScreen = ({ navigation }) => {
   return (
-    <View className="bg-white flex-1 pt-10 px-3">
+    <View className="bg-white flex-1 pt-10 px-5">
       <Text className="mt-12 text-3xl text-black font-bold">
         Create your account
       </Text>
@@ -41,7 +41,7 @@ const RegisterScreen = ({ navigation }) => {
         <View className="py-2 mt-5">
           <Pressable
             className="p-5 justify-center items-center bg-green-500 rounded-lg"
-            onPress={() => navigation.navigate("HomeScreen")}
+            onPress={() => navigation.navigate("Tab")}
           >
             <Text className="text-2xl text-white font-medium">
               Create new account
