@@ -5,12 +5,8 @@ import SearchScreen from "../screens/SearchScreen";
 import CollectionScreen from "../screens/CollectionScreen";
 
 // Icons
-import homeTabIcon from "./../assets/images/home.png";
-import homeTabIconActive from "./../assets/images/home_active.png";
-import searchTabIcon from "./../assets/images/search.png";
-import searchTabIconActive from "./../assets/images/search_active.png";
-import collectionTabIcon from "./../assets/images/collection.png";
-import collectionTabIconActive from "./../assets/images/collection_active.png";
+import IonIcons from "@expo/vector-icons/Ionicons";
+import DrawerNavigation from "./DrawerNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,24 +15,21 @@ const TabNavigation = () => {
     <Tab.Navigator
       initialRouteName="HomeScreen"
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => {
+        tabBarIcon: ({ focused, color }) => {
           let iconName;
           let routeName = route.name;
 
-          if (routeName == "HomeScreen") {
-            iconName = focused ? homeTabIconActive : homeTabIcon;
+          if (routeName == "Drawer") {
+            iconName = focused ? "home" : "home-outline";
           } else if (routeName === "SearchScreen") {
-            iconName = focused ? searchTabIconActive : searchTabIcon;
+            iconName = focused ? "search" : "search-outline";
           } else if (routeName === "CollectionScreen") {
-            iconName = focused ? collectionTabIconActive : collectionTabIcon;
+            iconName = focused ? "bookmark" : "bookmark-outline";
+          } else if (routeName === "WriteScreen") {
+            iconName = focused ? "add-circle" : "add-circle-outline";
           }
 
-          return (
-            <Image
-              source={iconName}
-              style={[styles.icon, { tintColor: focused ? "#00B5B5" : "#000" }]}
-            />
-          );
+          return <IonIcons name={iconName} size={24} color={color} />;
         },
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
@@ -44,11 +37,12 @@ const TabNavigation = () => {
           backgroundColor: "white",
         },
         tabBarShowLabel: false,
+        tabBarActiveTintColor: "#03560f",
       })}
     >
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="Drawer"
+        component={DrawerNavigation}
         options={{
           headerShown: false,
         }}
@@ -56,6 +50,13 @@ const TabNavigation = () => {
       <Tab.Screen
         name="SearchScreen"
         component={SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="WriteScreen"
+        component={HomeScreen}
         options={{
           headerShown: false,
         }}

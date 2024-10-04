@@ -1,10 +1,34 @@
-import { Image, ScrollView, Text, View } from "react-native";
-import React from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useBooks } from "../context/BookContext";
 import menuIcon from "./../assets/images/menu.png";
 import notificationIcon from "./../assets/images/notification.png";
 import BookCard from "../components/BookCard";
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+  const {
+    books,
+    getBooks,
+    scienceBooks,
+    getScienceBooks,
+    inspirationalBooks,
+    getInspirationalBooks,
+  } = useBooks();
+  useEffect(() => {
+    getBooks();
+    getScienceBooks();
+    getInspirationalBooks();
+  }, []);
+
+  // console.log(books);
+  // books.map((book) => {
+  //   console.log(book.authors.map((author) => author.name).join(", "));
+  //   // Get book isbn
+  //   console.log(book.isbn);
+  // });
+  // console.log(books[0]);
   return (
     <ScrollView
       className="bg-white flex-1 pt-10 px-5"
@@ -15,10 +39,16 @@ const HomeScreen = () => {
     >
       {/* Header */}
       <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
-        <Image source={menuIcon} />
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.openDrawer()}
+        >
+          <Image source={menuIcon} />
+        </TouchableOpacity>
         <Text className="text-2xl text-green-700 font-bold">Bookify</Text>
         <Image source={notificationIcon} />
       </View>
+
       {/* Recommended Books */}
       <View className="mt-5">
         <Text className="text-3xl text-black font-bold">
@@ -33,22 +63,19 @@ const HomeScreen = () => {
           contentContainerStyle={{}}
           showsHorizontalScrollIndicator={false}
         >
-          <View className="mr-5">
-            <BookCard />
-          </View>
-          <View className="mr-5">
-            <BookCard />
-          </View>
-          <View className="mr-5">
-            <BookCard />
-          </View>
+          {books &&
+            books.map((book) => (
+              <View className="mr-5" key={book.key}>
+                <BookCard book={book} />
+              </View>
+            ))}
         </ScrollView>
       </View>
 
       <View className="mt-5">
-        <Text className="text-3xl text-black font-bold">New Releases</Text>
+        <Text className="text-3xl text-black font-bold">Science Books</Text>
         <Text className="text-xl text-neutral-500 font-normal">
-          Newly released books spanning various genres.
+          Explore the world of science
         </Text>
         <ScrollView
           horizontal
@@ -56,15 +83,35 @@ const HomeScreen = () => {
           contentContainerStyle={{}}
           showsHorizontalScrollIndicator={false}
         >
-          <View className="mr-5">
-            <BookCard />
-          </View>
-          <View className="mr-5">
-            <BookCard />
-          </View>
-          <View className="mr-5">
-            <BookCard />
-          </View>
+          {scienceBooks &&
+            scienceBooks.map((book) => (
+              <View className="mr-5" key={book.key}>
+                <BookCard book={book} />
+              </View>
+            ))}
+        </ScrollView>
+      </View>
+
+      {/* Inspirationa Books */}
+      <View className="mt-5">
+        <Text className="text-3xl text-black font-bold">
+          Inspirational Books
+        </Text>
+        <Text className="text-xl text-neutral-500 font-normal">
+          Books that inspire you to be the best version of yourself
+        </Text>
+        <ScrollView
+          horizontal
+          className="mt-4"
+          contentContainerStyle={{}}
+          showsHorizontalScrollIndicator={false}
+        >
+          {inspirationalBooks &&
+            inspirationalBooks.map((book) => (
+              <View className="mr-5" key={book.key}>
+                <BookCard book={book} />
+              </View>
+            ))}
         </ScrollView>
       </View>
     </ScrollView>
