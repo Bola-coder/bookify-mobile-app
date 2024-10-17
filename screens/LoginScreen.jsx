@@ -7,8 +7,27 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { useAuth } from "../context/AuthContext";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const LoginScreen = ({ navigation }) => {
+  const { login } = useAuth();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email().required("Email is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit: (values) => {
+      login(values);
+    },
+  });
+
   return (
     <View className="bg-white flex-1 pt-10 px-5">
       <Text className="mt-12 text-3xl text-black font-bold">Log in</Text>
@@ -23,8 +42,15 @@ const LoginScreen = ({ navigation }) => {
           <TextInput
             className="p-4 mt-2 rounded-md bg-gray-200 text-xl text-black"
             placeholder="Email address"
-            fon
+            id="email"
+            name="email"
+            value={formik.values.email}
+            onChangeText={formik.handleChange("email")}
+            onBlur={formik.handleBlur("email")}
           />
+          {formik.touched.email && formik.errors.email ? (
+            <Text className="text-red-500">{formik.errors.email}</Text>
+          ) : null}
         </View>
         <View className="py-2">
           <Text className="mt-3 text-lg text-gray-800 font-medium">
@@ -34,12 +60,20 @@ const LoginScreen = ({ navigation }) => {
             className="p-4 mt-2 rounded-md bg-gray-200 text-xl text-black"
             placeholder="password"
             secureTextEntry
+            id="password"
+            name="password"
+            value={formik.values.password}
+            onChangeText={formik.handleChange("password")}
+            onBlur={formik.handleBlur("password")}
           />
+          {formik.touched.password && formik.errors.password ? (
+            <Text className="text-red-500">{formik.errors.password}</Text>
+          ) : null}
         </View>
         <View className="py-2 mt-5">
           <Pressable
             className="p-5 justify-center items-center bg-green-500 rounded-lg"
-            onPress={() => navigation.navigate("Tab")}
+            onPress={formik.handleSubmit}
           >
             <Text className="text-2xl text-white font-medium">Log in</Text>
           </Pressable>
@@ -52,7 +86,7 @@ const LoginScreen = ({ navigation }) => {
             className="mt-3 ml-2"
             onPress={() => navigation.navigate("RegisterScreen")}
           >
-            <Text className="text-green-500 text-xl font-medium">Sing up</Text>
+            <Text className="text-green-500 text-xl font-medium">Sign up</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

@@ -1,10 +1,12 @@
-import { View, Text } from "react-native";
 import React, { useState, createContext, useContext } from "react";
 const BookContext = createContext();
 
 export const useBooks = () => {
   return useContext(BookContext);
 };
+
+const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+console.log(apiUrl);
 
 const BookProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
