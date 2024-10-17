@@ -51,7 +51,6 @@ const AuthProvider = ({ children }) => {
     axios
       .post(`${apiUrl}/auth/register`, data)
       .then(async (res) => {
-        console.log(res);
         await AsyncStorage.storeData("token", res.data.token);
         await AsyncStorage.storeData("user", res.data.data.user);
         setUser(res.data.data);

@@ -3,18 +3,12 @@ import React, { useEffect } from "react";
 const { useAuth } = require("../context/AuthContext");
 import { useNavigation } from "@react-navigation/native";
 import logo from "./../assets/images/logo.png";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SplashScreen = () => {
   const { isAuthenticated } = useAuth();
   const navigation = useNavigation();
 
   useEffect(() => {
-    async function clearAsyncStorage() {
-      await AsyncStorage.clear();
-    }
-
-    clearAsyncStorage();
     const timeout = setTimeout(() => {
       if (isAuthenticated) {
         navigation.navigate("Tab");
