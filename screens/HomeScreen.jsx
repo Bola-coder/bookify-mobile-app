@@ -8,27 +8,11 @@ import BookCard from "../components/BookCard";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const {
-    books,
-    getBooks,
-    scienceBooks,
-    getScienceBooks,
-    inspirationalBooks,
-    getInspirationalBooks,
-  } = useBooks();
+  const { books, getAllBooks } = useBooks();
   useEffect(() => {
-    getBooks();
-    getScienceBooks();
-    getInspirationalBooks();
+    getAllBooks();
   }, []);
 
-  // console.log(books);
-  // books.map((book) => {
-  //   console.log(book.authors.map((author) => author.name).join(", "));
-  //   // Get book isbn
-  //   console.log(book.isbn);
-  // });
-  // console.log(books[0]);
   return (
     <ScrollView
       className="bg-white flex-1 pt-10 px-5"
@@ -55,7 +39,7 @@ const HomeScreen = () => {
           Recommended for you
         </Text>
         <Text className="text-xl text-neutral-500 font-normal">
-          Handpicked based on your reading preferences.
+          Some great books you might like
         </Text>
         <ScrollView
           horizontal
@@ -65,14 +49,14 @@ const HomeScreen = () => {
         >
           {books &&
             books.map((book) => (
-              <View className="mr-5" key={book.key}>
+              <View className="mr-5" key={book._id}>
                 <BookCard book={book} />
               </View>
             ))}
         </ScrollView>
       </View>
 
-      <View className="mt-5">
+      {/* <View className="mt-5">
         <Text className="text-3xl text-black font-bold">Science Books</Text>
         <Text className="text-xl text-neutral-500 font-normal">
           Explore the world of science
@@ -90,10 +74,10 @@ const HomeScreen = () => {
               </View>
             ))}
         </ScrollView>
-      </View>
+      </View> */}
 
       {/* Inspirationa Books */}
-      <View className="mt-5">
+      {/* <View className="mt-5">
         <Text className="text-3xl text-black font-bold">
           Inspirational Books
         </Text>
@@ -113,7 +97,7 @@ const HomeScreen = () => {
               </View>
             ))}
         </ScrollView>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };

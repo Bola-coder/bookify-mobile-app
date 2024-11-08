@@ -1,5 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 const BookContext = createContext();
+import axiosInstance from "../config/axios";
 
 export const useBooks = () => {
   return useContext(BookContext);
@@ -15,17 +16,20 @@ const BookProvider = ({ children }) => {
   const [bookDetails, setBookDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const getBooks = () => {
+  const getAllBooks = () => {
     setLoading(true);
-    fetch("https://openlibrary.org/subjects/general.json?ebooks=true")
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        // console.log(data.works);
-        setBooks(data.works?.slice(0, 10));
+    axiosInstance
+      .get("/books")
+      .then((res) => {
+        // console.log(res.data.data);
+        setBooks(res.data.data.books);
       })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const getScienceBooks = () => {
@@ -50,25 +54,32 @@ const BookProvider = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
-  const getBookDetails = (query) => {
+  const getBookDetails = (id) => {
     setLoading(true);
-    fetch(`https://openlibrary.org/search.json?title=${query}?ebooks=true`)
-      .then((response) => response.json())
-      .then((data) => setBookDetails(data.docs[0]))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+    axiosInstance
+      .get("/books/" + id)
+      .then((res) => {
+        // console.log(res.data.data);
+        setBookDetails(res.data.data.book);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const values = {
     books,
     loading,
-    getBooks,
     bookDetails,
     scienceBooks,
     getScienceBooks,
     inspirationalBooks,
     getInspirationalBooks,
     getBookDetails,
+    getAllBooks,
   };
   return <BookContext.Provider value={values}>{children}</BookContext.Provider>;
 };

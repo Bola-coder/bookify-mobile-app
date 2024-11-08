@@ -10,7 +10,7 @@ const BookCard = ({ book }) => {
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={() => {
-        navigation.navigate("BookDetailsScreen", { bookId: book?.title });
+        navigation.navigate("BookDetailsScreen", { bookId: book._id });
       }}
       className="w-[200px]"
     >
@@ -19,21 +19,26 @@ const BookCard = ({ book }) => {
         <Image
           className="w-[100%] rounded-lg"
           source={{
-            uri: book?.cover_id
-              ? `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
+            uri: book?.coverImage
+              ? book.coverImage
               : Image.resolveAssetSource(bookOneImage).uri, // Fallback image
           }}
           style={{ width: "100%", height: 200, borderRadius: 10 }}
         />
         <Text className="bg-[#FBBC05] text-black text-xl font-bold px-2 py-1 absolute top-2 right-2 rounded">
-          Fiction
+          {book.genres[0] ? book.genres[0] : "Fiction"}
         </Text>
       </View>
       {/* Content below the image */}
       <View className="py-2">
-        <Text className="text-lg text-black font-bold">{book?.title}</Text>
-        <Text className="text-md text-neutral-500 font-medium">
-          {book?.authors?.map((author) => author.name).join(", ")}
+        <Text className="text-2xl text-black font-bold">{book?.title}</Text>
+        <Text className="text-lg text-gray-600">
+          {book.description.length > 25
+            ? `${book.description.slice(0, 25)}...`
+            : book.description}
+        </Text>
+        <Text className="text-md text-neutral-800 font-medium">
+          {book?.author.firstname + " " + book?.author.lastname}
         </Text>
       </View>
     </TouchableOpacity>

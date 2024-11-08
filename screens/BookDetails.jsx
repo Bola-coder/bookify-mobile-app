@@ -16,30 +16,7 @@ const BookDetails = ({ route }) => {
     getBookDetails(bookId);
   }, [bookId]);
 
-  // console.log("Book Details", bookDetails);
-  console.log("Book Details", bookDetails?.title);
-  console.log("Book descr: ", bookDetails?.author_name);
-  console.log("E-book URL: ", bookDetails?.ebook_access);
-
-  // Get description safely in case it's an object
-  const getDescription = () => {
-    if (!bookDetails?.description) return "No description available.";
-    return typeof bookDetails.description === "string"
-      ? bookDetails.description
-      : bookDetails.description.value;
-  };
-
-  // Fallback image URL for Open Library covers
-  const getImageSource = () => {
-    if (bookDetails?.covers && bookDetails.covers.length > 0) {
-      return {
-        uri: `https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-L.jpg`,
-      };
-    } else if (bookDetails?.formats?.["image/jpeg"]) {
-      return { uri: bookDetails.formats["image/jpeg"] };
-    }
-    return bookOneImage; // Local fallback image
-  };
+  console.log("Book Details", bookDetails);
 
   return (
     <View className="bg-white flex-1 pt-10 px-5">
@@ -51,35 +28,35 @@ const BookDetails = ({ route }) => {
         <Image source={notificationIcon} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className="max-w-[90%] w-auto mt-6">
+        <View className="max-w-[100%] w-auto mt-6">
           <Image
-            source={getImageSource()}
+            source={{
+              uri: bookDetails?.coverImage
+                ? bookDetails.coverImage
+                : Image.resolveAssetSource(bookOneImage).uri,
+            }}
             className="w-full h-[300px] rounded-lg self-center"
             resizeMode="cover"
           />
         </View>
 
-        {/* Title and Summary */}
         <View className="mt-5 border-b-2 pb-3 border-neutral-200">
-          <Text className="text-2xl text-black font-bold">
-            {bookDetails?.title || "No title available"}
+          <Text className="text-4xl text-black font-bold mb-2">
+            {bookDetails?.title}
+          </Text>
+          <Text className="text-lg text-neutral-400 font-normal mb-2">
+            {bookDetails?.description}
           </Text>
           <Text className="text-lg text-[#0D0842] font-bold">
-            {bookDetails?.authors?.map((author) => author.name).join(", ") ||
-              "Unknown Author"}
-          </Text>
-          {/* Replace with actual summary from API if available */}
-          <Text className="text-lg text-neutral-400 font-normal">
-            {getDescription()}
+            Author:{" "}
+            {bookDetails.author?.firstname + " " + bookDetails.author?.lastname}
           </Text>
         </View>
 
-        {/* Overview */}
         <View className="mt-5">
           <Text className="text-2xl text-black font-bold">Overview</Text>
           <Text className="text-lg text-neutral-500 font-normal">
-            {/* Use a portion of the description as an overview or additional data if available */}
-            {getDescription()}
+            {bookDetails?.summary}
           </Text>
         </View>
       </ScrollView>
