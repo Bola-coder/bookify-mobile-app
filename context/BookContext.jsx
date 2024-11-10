@@ -6,8 +6,7 @@ export const useBooks = () => {
   return useContext(BookContext);
 };
 
-const apiUrl = process.env.EXPO_PUBLIC_API_URL;
-console.log(apiUrl);
+// const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
 const BookProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
