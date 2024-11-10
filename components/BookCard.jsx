@@ -12,7 +12,7 @@ const BookCard = ({ book }) => {
       onPress={() => {
         navigation.navigate("BookDetailsScreen", { bookId: book._id });
       }}
-      className="w-[200px]"
+      className="w-[200px] h-[320px] bg-[#f2e9d3]  rounded-lg shadow-md"
     >
       {/* Container for the image and absolute-positioned tag */}
       <View className="relative">
@@ -30,14 +30,18 @@ const BookCard = ({ book }) => {
         </Text>
       </View>
       {/* Content below the image */}
-      <View className="py-2">
-        <Text className="text-2xl text-black font-bold">{book?.title}</Text>
-        <Text className="text-lg text-gray-600">
-          {book.description.length > 25
-            ? `${book.description.slice(0, 25)}...`
+      <View className="p-2 px-4">
+        <Text className="text-xl text-black font-bold">
+          {book.title.length > 15
+            ? `${book.title.slice(0, 15)}...`
+            : book.title}
+        </Text>
+        <Text className="text-lg text-gray-600 py-1">
+          {book.description.length > 20
+            ? `${book.description.slice(0, 20)}...`
             : book.description}
         </Text>
-        <Text className="text-md text-neutral-800 font-medium">
+        <Text className="text-lg text-neutral-800 font-medium py-1">
           {book?.author.firstname + " " + book?.author.lastname}
         </Text>
       </View>

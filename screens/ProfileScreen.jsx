@@ -7,7 +7,7 @@ import notificationIcon from "./../assets/images/notification.png";
 const ProfileScreen = () => {
   const navigation = useNavigation();
   return (
-    <View className="bg-white flex-1 pt-10 px-5">
+    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
       {/* Header */}
       <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
         <Pressable onPress={() => navigation.goBack()}>

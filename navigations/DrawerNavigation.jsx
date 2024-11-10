@@ -13,10 +13,13 @@ const DrawerNavigation = () => {
         drawerActiveTintColor: "#03560f",
         drawerInactiveTintColor: "black",
         drawerActiveBackgroundColor: "lightgrey",
-        drawerInactiveBackgroundColor: "white",
+        drawerInactiveBackgroundColor: "#fbf7ef",
         drawerLabelStyle: {
           fontSize: 20,
           fontWeight: "bold",
+        },
+        drawerStyle: {
+          backgroundColor: "#fbf7ef",
         },
       })}
     >

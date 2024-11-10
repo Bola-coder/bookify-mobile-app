@@ -29,7 +29,7 @@ const LoginScreen = ({ navigation }) => {
   });
 
   return (
-    <View className="bg-white flex-1 pt-10 px-5">
+    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
       <Text className="mt-12 text-3xl text-black font-bold">Log in</Text>
       <Text className="mt-3 text-lg text-gray-500 font-bold">
         Welcome back! Log in to resume your reading journey.

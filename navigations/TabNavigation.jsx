@@ -34,7 +34,7 @@ const TabNavigation = () => {
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
           height: 80,
-          backgroundColor: "white",
+          backgroundColor: "#fbf7ef",
         },
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#03560f",

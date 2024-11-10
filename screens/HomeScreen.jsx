@@ -8,14 +8,14 @@ import BookCard from "../components/BookCard";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { books, getAllBooks } = useBooks();
+  const { books, loading, getAllBooks } = useBooks();
   useEffect(() => {
     getAllBooks();
   }, []);
 
   return (
     <ScrollView
-      className="bg-white flex-1 pt-10 px-5"
+      className="bg-[#fbf7ef] flex-1 pt-10 px-5"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: 40,
@@ -35,7 +35,10 @@ const HomeScreen = () => {
 
       {/* Recommended Books */}
       <View className="mt-5">
-        <Text className="text-3xl text-black font-bold">
+        <Text
+          className="text-3xl text-black "
+          style={{ fontFamily: "Georgia-Bold" }}
+        >
           Recommended for you
         </Text>
         <Text className="text-xl text-neutral-500 font-normal">
@@ -47,7 +50,9 @@ const HomeScreen = () => {
           contentContainerStyle={{}}
           showsHorizontalScrollIndicator={false}
         >
-          {books &&
+          {loading && <Text>Loading...</Text>}
+          {!loading &&
+            books &&
             books.map((book) => (
               <View className="mr-5" key={book._id}>
                 <BookCard book={book} />

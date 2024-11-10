@@ -40,7 +40,7 @@ const RegisterScreen = ({ navigation }) => {
   });
 
   return (
-    <View className="bg-white flex-1 pt-10 px-5">
+    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
       <ScrollView
         contentContainerStyle={{
           // flex: 1,

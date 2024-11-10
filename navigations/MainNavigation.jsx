@@ -6,6 +6,8 @@ import RegisterScreen from "../screens/RegisterScreen";
 import LoginScreen from "../screens/LoginScreen";
 import TabNavigation from "./TabNavigation";
 import BookDetails from "../screens/BookDetails";
+import ChapterScreen from "../screens/ChapterScreen";
+import ReadChapter from "../screens/ReadChapter";
 
 const Stack = createNativeStackNavigator();
 const MainNavigation = () => {
@@ -29,6 +31,16 @@ const MainNavigation = () => {
       <Stack.Screen
         name="BookDetailsScreen"
         component={BookDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChaptersScreen"
+        component={ChapterScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ReadChapterScreen"
+        component={ReadChapter}
         options={{ headerShown: false }}
       />
       <Stack.Screen
