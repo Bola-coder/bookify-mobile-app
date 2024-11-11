@@ -1,4 +1,5 @@
 import {
+  Alert,
   View,
   Text,
   Image,
@@ -10,19 +11,67 @@ import React, { useEffect } from "react";
 import StarReview from "react-native-stars";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import Toast from "react-native-root-toast";
 import { useBooks } from "../context/BookContext";
-import bookOneImage from "./../assets/images/bookOne.png";
+import { useAuth } from "../context/AuthContext";
+import bookImagePlaceholder from "./../assets/images/bookImagePlaceholder.jpg";
 import backIcon from "./../assets/images/back.png";
 import notificationIcon from "./../assets/images/notification.png";
 
 const BookDetails = ({ route }) => {
   const navigation = useNavigation();
   const bookId = route.params.bookId;
-  const { bookDetails, getBookDetails } = useBooks();
+  const { bookDetails, likeMessage, getBookDetails, likeBook, unlikeBook } =
+    useBooks();
+  const { user } = useAuth();
+  const [bookLiked, setBookLiked] = React.useState(false);
 
   useEffect(() => {
     getBookDetails(bookId);
   }, [bookId]);
+
+  useEffect(() => {
+    setBookLiked(false);
+    const userLiked = bookDetails?.likes?.findIndex(
+      (like) => like._id === user._id
+    );
+
+    if (userLiked !== -1) {
+      setBookLiked(true);
+    }
+  }, [bookDetails]);
+
+  const handleBookLike = async () => {
+    if (bookLiked) {
+      Alert.alert("Unlike Book", "Are you sure you want to unlike this book?", [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            await unlikeBook(bookId);
+            // Toast.show(likeMessage, {
+            //   duration: Toast.durations.SHORT,
+            //   position: Toast.positions.TOP,
+            //   animation: true,
+            //   hideOnPress: true,
+            // });
+          },
+        },
+      ]);
+    } else {
+      await likeBook(bookId);
+      // Toast.show(likeMessage, {
+      //   duration: Toast.durations.SHORT,
+      //   position: Toast.positions.TOP,
+      //   animation: true,
+      //   hideOnPress: true,
+      // });
+    }
+  };
 
   // console.log("Book Details", bookDetails);
 
@@ -45,7 +94,7 @@ const BookDetails = ({ route }) => {
             source={{
               uri: bookDetails?.coverImage
                 ? bookDetails.coverImage
-                : Image.resolveAssetSource(bookOneImage).uri,
+                : Image.resolveAssetSource(bookImagePlaceholder).uri,
             }}
             className="w-[60%] h-[300px] rounded-lg self-center"
             resizeMode="cover"
@@ -98,7 +147,9 @@ const BookDetails = ({ route }) => {
           </View>
 
           <View className="flex items-center">
-            <Text className="text-2xl text-black font-bold">80</Text>
+            <Text className="text-2xl text-black font-bold">
+              {bookDetails?.likes?.length}
+            </Text>
             <Text className="text-lg text-neutral-400 font-normal">Likes</Text>
           </View>
           <View className="flex items-center">
@@ -124,16 +175,58 @@ const BookDetails = ({ route }) => {
             {bookDetails?.summary}
           </Text>
         </View>
+
+        {/* Displays Tags  */}
+        <View className="mt-5 mb-6">
+          <Text
+            className="text-2xl text-[#3a3967] py-3"
+            style={{ fontFamily: "Georgia-Bold" }}
+          >
+            Tags
+          </Text>
+          <View className="flex-row">
+            {bookDetails?.tags?.map((tag, index) => (
+              <View
+                key={index}
+                className="bg-[#f1f1f1] py-2 px-4 rounded-full mr-2"
+              >
+                <Text className="text-lg text-black font-normal">{tag}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Implement like and unlike book */}
+        <View className="flex-row  items-center mt-5 mb-6">
+          <TouchableOpacity className="mr-5 px-2" onPress={handleBookLike}>
+            <Icon
+              name={bookLiked ? "thumb-up" : "thumb-up-outline"}
+              size={36}
+              color="black"
+            />
+            {/* <Text className="text-black text-2xl font-bold ml-2">Like</Text> */}
+          </TouchableOpacity>
+        </View>
       </ScrollView>
+
+      {/* Buttons for Read and Save */}
       <View className="flex-row justify-between mb-10">
         <TouchableOpacity
           onPress={() => {
             console.log("Bookmarking");
           }}
-          className="bg-white py-3 border-2 rounded-full basis-[45%]"
+          className="bg-white py-3 border-2 rounded-full basis-[45%] flex-row items-center justify-center"
         >
+          <Icon
+            name="bookmark-outline"
+            size={24}
+            color="black"
+            style={{
+              marginRight: 5,
+            }}
+          />
           <Text className="text-black text-center text-2xl font-bold">
-            Save for later
+            Save
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

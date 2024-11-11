@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 const BookContext = createContext();
 import axiosInstance from "../config/axios";
+import AsyncStorage from "../utils/AsyncStorage";
 
 export const useBooks = () => {
   return useContext(BookContext);
@@ -10,10 +11,11 @@ export const useBooks = () => {
 
 const BookProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
-  const [scienceBooks, setScienceBooks] = useState([]);
-  const [inspirationalBooks, setInspirationalBooks] = useState([]);
   const [bookDetails, setBookDetails] = useState({});
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchMessage, setSearchMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [likeMessage, setLikeMessage] = useState("");
 
   const getAllBooks = () => {
     setLoading(true);
@@ -31,29 +33,8 @@ const BookProvider = ({ children }) => {
       });
   };
 
-  const getScienceBooks = () => {
-    setLoading(true);
-    fetch("https://openlibrary.org/subjects/science.json?ebooks=true")
-      .then((response) => response.json())
-      .then((data) => {
-        setScienceBooks(data.works?.slice(0, 10));
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  };
-
-  const getInspirationalBooks = () => {
-    setLoading(true);
-    fetch("https://openlibrary.org/subjects/inspiration.json?ebooks=true")
-      .then((response) => response.json())
-      .then((data) => {
-        setInspirationalBooks(data.works?.slice(0, 10));
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  };
-
   const getBookDetails = (id) => {
+    setBookDetails({});
     setLoading(true);
     axiosInstance
       .get("/books/" + id)
@@ -69,16 +50,81 @@ const BookProvider = ({ children }) => {
       });
   };
 
+  const searchBooks = (query) => {
+    setSearchMessage("");
+    setSearchResults([]);
+    setLoading(true);
+    axiosInstance
+      .get("/books/search", {
+        params: {
+          query,
+        },
+      })
+      .then((res) => {
+        if (!res.data.data) {
+          setSearchMessage("No results found");
+          return;
+        }
+        setSearchResults(res.data.data.books);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const likeBook = (id) => {
+    setLikeMessage("");
+    axiosInstance
+      .post("/books/like/" + id)
+      .then((res) => {
+        setLikeMessage(res.data.message);
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          setLikeMessage(err.response.data.message);
+          return;
+        }
+        console.log(err.message);
+      })
+      .finally(() => {
+        getBookDetails(id);
+      });
+  };
+
+  const unlikeBook = (id) => {
+    setLikeMessage("");
+    axiosInstance
+      .post("/books/unlike/" + id)
+      .then((res) => {
+        setLikeMessage(res.data.message);
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          setLikeMessage(err.response.data.message);
+          return;
+        }
+        console.log(err.message);
+      })
+      .finally(() => {
+        getBookDetails(id);
+      });
+  };
   const values = {
     books,
     loading,
     bookDetails,
-    scienceBooks,
-    getScienceBooks,
-    inspirationalBooks,
-    getInspirationalBooks,
-    getBookDetails,
+    searchResults,
+    searchMessage,
+    likeMessage,
+    setSearchResults,
     getAllBooks,
+    getBookDetails,
+    searchBooks,
+    likeBook,
+    unlikeBook,
   };
   return <BookContext.Provider value={values}>{children}</BookContext.Provider>;
 };

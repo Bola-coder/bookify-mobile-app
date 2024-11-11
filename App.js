@@ -4,6 +4,7 @@ import { StyleSheet, TouchableOpacity, Modal, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
+import { RootSiblingParent } from "react-native-root-siblings";
 import MainNavigation from "./navigations/MainNavigation";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
@@ -54,14 +55,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <NavigationContainer>
-        <AuthProvider>
-          <BookProvider>
-            <StatusBar style="auto" />
-            <MainNavigation />
-          </BookProvider>
-        </AuthProvider>
-      </NavigationContainer>
+      <RootSiblingParent>
+        <NavigationContainer>
+          <AuthProvider>
+            <BookProvider>
+              <StatusBar style="auto" />
+              <MainNavigation />
+            </BookProvider>
+          </AuthProvider>
+        </NavigationContainer>
+      </RootSiblingParent>
     </View>
   );
 }

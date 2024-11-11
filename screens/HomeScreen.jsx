@@ -1,4 +1,11 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useBooks } from "../context/BookContext";
@@ -47,10 +54,15 @@ const HomeScreen = () => {
         <ScrollView
           horizontal
           className="mt-4"
-          contentContainerStyle={{}}
+          contentContainerStyle={{ flex: 1 }}
           showsHorizontalScrollIndicator={false}
         >
-          {loading && <Text>Loading...</Text>}
+          {loading && (
+            <View className="flex-1 items-center justify-center mt-6">
+              <ActivityIndicator size="large" color="#0000ff" />
+              <Text>Loading...</Text>
+            </View>
+          )}
           {!loading &&
             books &&
             books.map((book) => (

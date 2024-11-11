@@ -39,9 +39,8 @@ const AuthProvider = ({ children }) => {
       if (userData) {
         setUser(userData);
       }
-      if (token) {
-        setIsAuthenticated(true);
-      }
+
+      checkAuthStatus();
     };
     checkAuth();
   }, []);
@@ -89,7 +88,6 @@ const AuthProvider = ({ children }) => {
       .get("/auth/check-auth")
       .then((res) => {
         if (res.data.status === "success") {
-          console.log(res.data);
           setIsAuthenticated(true);
         }
       })
