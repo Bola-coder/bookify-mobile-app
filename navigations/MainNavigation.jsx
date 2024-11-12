@@ -8,6 +8,7 @@ import TabNavigation from "./TabNavigation";
 import BookDetails from "../screens/BookDetails";
 import ChapterScreen from "../screens/ChapterScreen";
 import ReadChapter from "../screens/ReadChapter";
+import CollectionDetailsScreen from "../screens/CollectionDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 const MainNavigation = () => {
@@ -41,6 +42,11 @@ const MainNavigation = () => {
       <Stack.Screen
         name="ReadChapterScreen"
         component={ReadChapter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CollectionDetailsScreen"
+        component={CollectionDetailsScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
 import BookProvider from "./context/BookContext";
 import AuthProvider from "./context/AuthContext";
+import CollectionProvider from "./context/CollectionContext";
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -59,8 +60,10 @@ export default function App() {
         <NavigationContainer>
           <AuthProvider>
             <BookProvider>
-              <StatusBar style="auto" />
-              <MainNavigation />
+              <CollectionProvider>
+                <StatusBar style="auto" />
+                <MainNavigation />
+              </CollectionProvider>
             </BookProvider>
           </AuthProvider>
         </NavigationContainer>

@@ -11,7 +11,7 @@ import React, { useEffect } from "react";
 import StarReview from "react-native-stars";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import Toast from "react-native-root-toast";
+// import Toast from "react-native-root-toast";
 import { useBooks } from "../context/BookContext";
 import { useAuth } from "../context/AuthContext";
 import bookImagePlaceholder from "./../assets/images/bookImagePlaceholder.jpg";
