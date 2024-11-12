@@ -1,10 +1,38 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import React from "react";
-import bookmarkIcon from "./../assets/images/bookmark.png";
-
+import { useNavigation } from "@react-navigation/native";
+import { useCollections } from "../context/CollectionContext";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 const BookmarkCard = ({ book }) => {
+  const navigation = useNavigation();
+  const { collectionDetails, removeBookFromCollection } = useCollections();
+
+  const handleRemoveBook = () => {
+    Alert.alert(
+      "Remove Book",
+      "Are you sure you want to remove this book from the collection?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () =>
+            removeBookFromCollection(collectionDetails._id, book._id),
+        },
+      ]
+    );
+  };
   return (
-    <View className="flex-row items-center border-b-2 border-neutral-200 py-4">
+    <TouchableOpacity
+      className="flex-row items-center border-b-2 border-neutral-200 py-4"
+      activeOpacity={0.7}
+      onPress={() =>
+        navigation.navigate("BookDetailsScreen", { bookId: book._id })
+      }
+    >
       {/* Placeholder for the book image */}
       <View className="w-[100px] h-[100px] rounded-lg bg-neutral-200">
         <Image
@@ -22,7 +50,9 @@ const BookmarkCard = ({ book }) => {
           <Text className="text-lg text-black font-bold flex-1">
             {book?.title}
           </Text>
-          <Image source={bookmarkIcon} className="w-6 h-6 ml-2" />
+          <TouchableOpacity className="p-2" onPress={handleRemoveBook}>
+            <Icon name="delete" size={24} color="#FF6347" />
+          </TouchableOpacity>
         </View>
 
         {/* Author */}
@@ -35,7 +65,7 @@ const BookmarkCard = ({ book }) => {
           {book?.description}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

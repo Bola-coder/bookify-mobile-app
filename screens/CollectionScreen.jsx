@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TextInput,
   Modal,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,8 +18,13 @@ import backIcon from "./../assets/images/back.png";
 import notificationIcon from "./../assets/images/notification.png";
 
 const CollectionScreen = () => {
-  const { collections, loading, getAllCollections, createCollection } =
-    useCollections();
+  const {
+    collections,
+    loading,
+    getAllCollections,
+    createCollection,
+    deleteCollection,
+  } = useCollections();
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -40,6 +46,24 @@ const CollectionScreen = () => {
       setTitle("");
       setDescription("");
     }
+  };
+
+  const handleDeleteCollection = (id) => {
+    Alert.alert(
+      "Delete Collection",
+      "Are you sure you want to delete this collection?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => deleteCollection(id),
+        },
+      ]
+    );
   };
 
   return (
@@ -84,12 +108,25 @@ const CollectionScreen = () => {
               }}
               onPress={() => handleViewCollection(collection._id)}
             >
-              <Text className="text-2xl text-black font-bold">
-                {collection.title}
-              </Text>
-              <Text className="text-lg text-neutral-600 font-normal">
-                {collection.description}
-              </Text>
+              <View className="flex-row justify-between items-center">
+                <View className="flex-1">
+                  <Text className="text-lg text-black font-bold">
+                    {collection.title} ({collection.books.length})
+                  </Text>
+                  <Text className="text-md text-neutral-500 font-normal mt-1">
+                    {collection.description}
+                  </Text>
+                </View>
+                {collection.deletable && (
+                  <TouchableOpacity
+                    className=""
+                    activeOpacity={0.7}
+                    onPress={() => handleDeleteCollection(collection._id)}
+                  >
+                    <Icon name="delete" size={24} color="#000" />
+                  </TouchableOpacity>
+                )}
+              </View>
             </TouchableOpacity>
           ))}
         </View>

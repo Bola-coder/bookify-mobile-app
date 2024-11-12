@@ -1,18 +1,21 @@
 import {
   Alert,
+  FlatList,
   View,
   Text,
   Image,
   Pressable,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import StarReview from "react-native-stars";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-// import Toast from "react-native-root-toast";
+import Toast from "react-native-root-toast";
 import { useBooks } from "../context/BookContext";
+import { useCollections } from "../context/CollectionContext";
 import { useAuth } from "../context/AuthContext";
 import bookImagePlaceholder from "./../assets/images/bookImagePlaceholder.jpg";
 import backIcon from "./../assets/images/back.png";
@@ -23,14 +26,30 @@ const BookDetails = ({ route }) => {
   const bookId = route.params.bookId;
   const { bookDetails, likeMessage, getBookDetails, likeBook, unlikeBook } =
     useBooks();
+  const {
+    collections,
+    collectionError,
+    getAllCollections,
+    addBookToCollection,
+  } = useCollections();
   const { user } = useAuth();
-  const [bookLiked, setBookLiked] = React.useState(false);
+  const [bookLiked, setBookLiked] = useState(false);
+  const [collectionWithTheBook, setCollectionWithTheBook] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     getBookDetails(bookId);
+    getAllCollections();
   }, [bookId]);
 
   useEffect(() => {
+    checkIfBookIsLiked();
+  }, [bookDetails]);
+
+  useEffect(() => {
+    checkIfBookIsInACollectionForUser();
+  }, [collections]);
+  const checkIfBookIsLiked = () => {
     setBookLiked(false);
     const userLiked = bookDetails?.likes?.findIndex(
       (like) => like._id === user._id
@@ -39,7 +58,19 @@ const BookDetails = ({ route }) => {
     if (userLiked !== -1) {
       setBookLiked(true);
     }
-  }, [bookDetails]);
+  };
+
+  const checkIfBookIsInACollectionForUser = () => {
+    const bookInColletions = collections.filter((collection) => {
+      const bookIndex = collection.books.findIndex(
+        (book) => book._id === bookId
+      );
+      return bookIndex !== -1;
+    });
+
+    setCollectionWithTheBook(bookInColletions);
+    // console.log("Book in collections", bookInColletions);
+  };
 
   const handleBookLike = async () => {
     if (bookLiked) {
@@ -73,9 +104,12 @@ const BookDetails = ({ route }) => {
     }
   };
 
-  // console.log("Book Details", bookDetails);
+  const handleAddToCollection = async (collectionId) => {
+    await addBookToCollection(collectionId, bookId);
+    setModalVisible(false);
+  };
 
-  const handleNextAction = () => {
+  const handleReadBook = () => {
     navigation.navigate("ChaptersScreen");
   };
 
@@ -213,7 +247,7 @@ const BookDetails = ({ route }) => {
       <View className="flex-row justify-between mb-10">
         <TouchableOpacity
           onPress={() => {
-            console.log("Bookmarking");
+            setModalVisible(true);
           }}
           className="bg-white py-3 border-2 rounded-full basis-[45%] flex-row items-center justify-center"
         >
@@ -230,7 +264,7 @@ const BookDetails = ({ route }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={handleNextAction}
+          onPress={handleReadBook}
           className="bg-black py-3 border-2 rounded-full basis-[45%]"
         >
           <Text className="text-white text-center text-2xl font-bold">
@@ -238,6 +272,67 @@ const BookDetails = ({ route }) => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View className="flex-1 justify-center items-center bg-gray bg-opacity-50">
+          <View
+            className="bg-white rounded-lg w-[90%] max-h-[50%] p-5"
+            style={{
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.2,
+              shadowRadius: 4,
+              elevation: 4,
+            }}
+          >
+            <Text className="text-2xl font-bold mb-4 text-center">
+              Add to Collection
+            </Text>
+            <FlatList
+              data={collections}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => handleAddToCollection(item._id)}
+                  className="py-3 px-4 bg-gray-200 rounded-lg my-2"
+                >
+                  {
+                    <Icon
+                      name={
+                        collectionWithTheBook &&
+                        collectionWithTheBook.findIndex(
+                          (collection) => collection._id === item._id
+                        ) !== -1
+                          ? "bookmark"
+                          : "bookmark-outline"
+                      }
+                      size={24}
+                      color="black"
+                      style={{
+                        position: "absolute",
+                        right: 10,
+                        top: 10,
+                      }}
+                    />
+                  }
+                  <Text className="text-xl text-center">{item.title}</Text>
+                </TouchableOpacity>
+              )}
+            />
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              className="mt-4 py-3 px-4 bg-red-500 rounded-lg"
+            >
+              <Text className="text-white text-center text-lg">Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
