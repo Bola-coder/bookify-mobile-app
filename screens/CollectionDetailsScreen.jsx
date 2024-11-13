@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  Image,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
@@ -12,8 +10,7 @@ import React, { useEffect } from "react";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useCollections } from "../context/CollectionContext";
 import BookmarkCard from "../components/BookmarkCard";
-import backIcon from "./../assets/images/back.png";
-import notificationIcon from "./../assets/images/notification.png";
+import Header from "../components/Header";
 
 const CollectionDetailsScreen = ({ route, navigation }) => {
   const { collectionDetails, loading, getCollectionDetails, emptyCollection } =
@@ -42,14 +39,9 @@ const CollectionDetailsScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
+    <View className="bg-[#f2e9d3] flex-1 pt-10 px-5">
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={backIcon} />
-        </Pressable>
-        <Image source={notificationIcon} />
-      </View>
+      <Header title="Collection Details" />
 
       <ScrollView className="mt-8" showsVerticalScrollIndicator={false}>
         <View className="flex-row justify-between items-center">

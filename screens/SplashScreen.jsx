@@ -27,7 +27,7 @@ const SplashScreen = () => {
   //   AsyncStorage.clear();
   // }
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-10 justify-center items-center">
+    <View className="bg-[#f2e9d3] flex-1 pt-10 justify-center items-center">
       <View className="justify-center items-center flex-row">
         <Image source={logo} className="mr-3" />
         <Text className="text-green-600 text-[50px] font-bold">Bookify</Text>

@@ -1,8 +1,6 @@
 import {
   View,
   Text,
-  Image,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
@@ -14,8 +12,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useCollections } from "../context/CollectionContext";
-import backIcon from "./../assets/images/back.png";
-import notificationIcon from "./../assets/images/notification.png";
+import Header from "../components/Header";
+import TabScreenHeader from "../components/TabScreenHeader";
 
 const CollectionScreen = () => {
   const {
@@ -67,14 +65,9 @@ const CollectionScreen = () => {
   };
 
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
+    <View className="bg-[#f2e9d3] flex-1 pt-10 px-5">
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={backIcon} />
-        </Pressable>
-        <Image source={notificationIcon} />
-      </View>
+      <TabScreenHeader title="Collections" />
 
       <ScrollView className="mt-8" showsVerticalScrollIndicator={false}>
         <View className="flex-row justify-between items-center">
@@ -98,7 +91,7 @@ const CollectionScreen = () => {
             <TouchableOpacity
               key={collection._id}
               activeOpacity={0.7}
-              className="mt-5 bg-[#f2e9d3] p-4 rounded-lg shadow-md"
+              className="mt-5 bg-[#FBBC05] p-4 rounded-lg shadow-md"
               style={{
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },

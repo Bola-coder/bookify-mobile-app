@@ -1,17 +1,10 @@
-import {
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useBooks } from "../context/BookContext";
-import menuIcon from "./../assets/images/menu.png";
-import notificationIcon from "./../assets/images/notification.png";
+
 import BookCard from "../components/BookCard";
+import TabScreenHeader from "../components/TabScreenHeader";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -22,23 +15,14 @@ const HomeScreen = () => {
 
   return (
     <ScrollView
-      className="bg-[#fbf7ef] flex-1 pt-10 px-5"
+      className="bg-[#f2e9d3] flex-1 pt-10 px-5"
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
         paddingBottom: 40,
       }}
     >
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => navigation.openDrawer()}
-        >
-          <Image source={menuIcon} />
-        </TouchableOpacity>
-        <Text className="text-2xl text-green-700 font-bold">Bookify</Text>
-        <Image source={notificationIcon} />
-      </View>
+      <TabScreenHeader title="Books" />
 
       {/* Recommended Books */}
       <View className="mt-5">

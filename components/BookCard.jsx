@@ -12,7 +12,7 @@ const BookCard = ({ book }) => {
       onPress={() => {
         navigation.navigate("BookDetailsScreen", { bookId: book._id });
       }}
-      className="w-[200px] h-[320px] bg-[#f2e9d3]  rounded-lg shadow-md"
+      className="w-[200px] h-[320px] bg-[#FBBC05]  rounded-lg shadow-md"
     >
       {/* Container for the image and absolute-positioned tag */}
       <View className="relative">

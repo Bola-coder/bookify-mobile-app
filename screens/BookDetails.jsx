@@ -4,7 +4,6 @@ import {
   View,
   Text,
   Image,
-  Pressable,
   ScrollView,
   TouchableOpacity,
   Modal,
@@ -13,13 +12,12 @@ import React, { useEffect, useState } from "react";
 import StarReview from "react-native-stars";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import Toast from "react-native-root-toast";
 import { useBooks } from "../context/BookContext";
 import { useCollections } from "../context/CollectionContext";
 import { useAuth } from "../context/AuthContext";
 import bookImagePlaceholder from "./../assets/images/bookImagePlaceholder.jpg";
-import backIcon from "./../assets/images/back.png";
-import notificationIcon from "./../assets/images/notification.png";
+
+import Header from "../components/Header";
 
 const BookDetails = ({ route }) => {
   const navigation = useNavigation();
@@ -114,21 +112,15 @@ const BookDetails = ({ route }) => {
   };
 
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
+    <View className="bg-[#f2e9d3] flex-1 pt-10 px-5">
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={backIcon} />
-        </Pressable>
-        <Image source={notificationIcon} />
-      </View>
+      <Header title={"Book Details"} />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="max-w-[100%] w-auto mt-6">
           <Image
             source={{
-              uri: bookDetails?.coverImage
-                ? bookDetails.coverImage
-                : Image.resolveAssetSource(bookImagePlaceholder).uri,
+              uri: bookDetails?.coverImage,
             }}
             className="w-[60%] h-[300px] rounded-lg self-center"
             resizeMode="cover"
@@ -222,7 +214,7 @@ const BookDetails = ({ route }) => {
             {bookDetails?.tags?.map((tag, index) => (
               <View
                 key={index}
-                className="bg-[#f1f1f1] py-2 px-4 rounded-full mr-2"
+                className="bg-[#FBBC05] py-2 px-4 rounded-full mr-2"
               >
                 <Text className="text-lg text-black font-normal">{tag}</Text>
               </View>
@@ -249,7 +241,7 @@ const BookDetails = ({ route }) => {
           onPress={() => {
             setModalVisible(true);
           }}
-          className="bg-white py-3 border-2 rounded-full basis-[45%] flex-row items-center justify-center"
+          className="bg-[#FBBC05] py-3 border-2 border-[#FBBC05] rounded-full basis-[45%] flex-row items-center justify-center"
         >
           <Icon
             name="bookmark-outline"

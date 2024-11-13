@@ -11,6 +11,7 @@ import NetInfo from "@react-native-community/netinfo";
 import BookProvider from "./context/BookContext";
 import AuthProvider from "./context/AuthContext";
 import CollectionProvider from "./context/CollectionContext";
+import AuthorProvider from "./context/AuthorContext";
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -60,10 +61,12 @@ export default function App() {
         <NavigationContainer>
           <AuthProvider>
             <BookProvider>
-              <CollectionProvider>
-                <StatusBar style="auto" />
-                <MainNavigation />
-              </CollectionProvider>
+              <AuthorProvider>
+                <CollectionProvider>
+                  <StatusBar style="auto" />
+                  <MainNavigation />
+                </CollectionProvider>
+              </AuthorProvider>
             </BookProvider>
           </AuthProvider>
         </NavigationContainer>

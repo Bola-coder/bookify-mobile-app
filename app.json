@@ -24,7 +24,13 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+         "photoPermissions": "Allow Bookify to access your photos"
+        }
+      ]
     ]
   }
 }

@@ -146,7 +146,7 @@ const ReadChapter = ({ route, navigation }) => {
   };
 
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-12 px-6">
+    <View className="bg-[#f2e9d3] flex-1 pt-12 px-6">
       {/* Header */}
       <View className="flex-row justify-between items-center py-4">
         <Pressable onPress={() => navigation.goBack()}>

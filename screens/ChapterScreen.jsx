@@ -1,29 +1,16 @@
-import {
-  FlatList,
-  Image,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { useBooks } from "../context/BookContext";
-import backIcon from "./../assets/images/back.png";
-import notificationIcon from "./../assets/images/notification.png";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../components/Header";
 
 const ChapterScreen = ({ navigation }) => {
   const { bookDetails } = useBooks();
 
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-12 px-6">
+    <View className="bg-[#f2e9d3] flex-1 pt-12 px-6">
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={backIcon} />
-        </Pressable>
-        <Image source={notificationIcon} />
-      </View>
+      <Header title="Book Chapters" />
 
       {/* Book Title and Description */}
       <View className="p-4 mb-6">

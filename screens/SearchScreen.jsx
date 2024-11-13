@@ -2,18 +2,16 @@ import {
   View,
   Text,
   Image,
-  Pressable,
   TextInput,
   ScrollView,
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import backIcon from "./../assets/images/back.png";
-import notificationIcon from "./../assets/images/notification.png";
+import { useBooks } from "../context/BookContext";
 import searchIcon from "./../assets/images/search.png";
 import SearchResultCard from "../components/SearchResultCard";
-import { useBooks } from "../context/BookContext";
+import TabScreenHeader from "../components/TabScreenHeader";
 
 const SearchScreen = () => {
   const {
@@ -38,14 +36,9 @@ const SearchScreen = () => {
   };
   const navigation = useNavigation();
   return (
-    <View className="bg-[#fbf7ef] flex-1 pt-10 px-5">
+    <View className="bg-[#f2e9d3] flex-1 pt-10 px-5">
       {/* Header */}
-      <View className="flex-row justify-between items-center py-4 border-b-2 border-neutral-300">
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={backIcon} />
-        </Pressable>
-        <Image source={notificationIcon} />
-      </View>
+      <TabScreenHeader title="Search" />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Search Input */}
