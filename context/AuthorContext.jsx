@@ -12,6 +12,7 @@ export const useAuthorContext = () => {
 const AuthorProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [authorsBooks, setAuthorsBooks] = useState([]);
+  const [drafts, setDrafts] = useState([]);
   const [error, setError] = useState("");
 
   const handleError = (error) => {
@@ -19,6 +20,7 @@ const AuthorProvider = ({ children }) => {
 
     if (error.response) {
       errorMessage = error.response.data.message;
+      console.log(error.response.data);
     } else {
       console.log(error.message);
     }
@@ -40,7 +42,8 @@ const AuthorProvider = ({ children }) => {
       .get("/books/author/all")
       .then((res) => {
         // console.log(res.data);
-        setAuthorsBooks(res.data.data.books);
+        setAuthorsBooks(res.data.data.publishedBooks);
+        setDrafts(res.data.data.drafts);
       })
       .catch((err) => {
         handleError(err);
@@ -50,11 +53,34 @@ const AuthorProvider = ({ children }) => {
       });
   };
 
+  const createNewBook = async (bookData) => {
+    setLoading(true);
+    axiosInstance
+      .post("/books", bookData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        getAllBooksFromAuthor();
+      })
+      .catch((err) => {
+        handleError(err);
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   const values = {
     loading,
     authorsBooks,
+    drafts,
     error,
     getAllBooksFromAuthor,
+    createNewBook,
   };
   return (
     <AuthorContext.Provider value={values}>{children}</AuthorContext.Provider>

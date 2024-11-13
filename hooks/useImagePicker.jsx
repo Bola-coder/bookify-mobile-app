@@ -13,7 +13,6 @@ export const useImagePicker = () => {
     });
 
     if (!result.canceled) {
-      console.log(result);
       setImage(result.assets[0].uri);
     }
   };

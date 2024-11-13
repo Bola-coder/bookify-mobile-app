@@ -27,7 +27,7 @@ const BookmarkCard = ({ book }) => {
   };
   return (
     <TouchableOpacity
-      className="flex-row items-center bg-[#FBBC05] border-b-2 border-neutral-200 py-2 px-4 rounded-lg"
+      className="flex-row items-center border-b-2 border-neutral-200 py-2 px-4 rounded-lg"
       activeOpacity={0.7}
       onPress={() =>
         navigation.navigate("BookDetailsScreen", { bookId: book._id })

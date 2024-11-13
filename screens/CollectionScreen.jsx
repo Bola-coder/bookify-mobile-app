@@ -91,7 +91,7 @@ const CollectionScreen = () => {
             <TouchableOpacity
               key={collection._id}
               activeOpacity={0.7}
-              className="mt-5 bg-[#FBBC05] p-4 rounded-lg shadow-md"
+              className="mt-5 py-4 rounded-lg shadow-md"
               style={{
                 shadowColor: "#000",
                 shadowOffset: { width: 0, height: 2 },
