@@ -27,7 +27,7 @@ const BookmarkCard = ({ book }) => {
   };
   return (
     <TouchableOpacity
-      className="flex-row items-center border-b-2 border-neutral-200 py-2 px-4 rounded-lg"
+      className="flex-row items-center border-b-2 border-neutral-200 py-2 rounded-lg"
       activeOpacity={0.7}
       onPress={() =>
         navigation.navigate("BookDetailsScreen", { bookId: book._id })
@@ -44,7 +44,7 @@ const BookmarkCard = ({ book }) => {
       </View>
 
       {/* Title, Author, Summary, and Bookmark Icon */}
-      <View className="flex-1 ml-4">
+      <View className="flex-1 ml-4 ">
         {/* Title and Bookmark Icon Container */}
         <View className="flex-row items-center justify-between">
           <Text className="text-lg text-black font-bold flex-1">
@@ -56,13 +56,8 @@ const BookmarkCard = ({ book }) => {
         </View>
 
         {/* Author */}
-        <Text className="text-md text-[#0D084] font-bold mt-1">
-          {book?.auhtor}
-        </Text>
-
-        {/* Summary */}
-        <Text className="text-md text-neutral-500 font-normal mt-1">
-          {book?.description}
+        <Text className="text-md text-neutral-500 font-bold mt-1">
+          {book?.author.firstname + " " + book?.author.lastname}
         </Text>
       </View>
     </TouchableOpacity>

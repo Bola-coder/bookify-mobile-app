@@ -54,13 +54,13 @@ const WriteScreen = ({ navigation }) => {
       >
         <Icon name="note-plus" size={20} color="#000000" />
         <View className="ml-2">
-          <Text className="text-xl font-bold">Write a new story</Text>
+          <Text className="text-lg font-bold">Write a new story</Text>
         </View>
       </TouchableOpacity>
       <View className="mt-6">
         {/* Drafts */}
         <View className="mb-8">
-          <Text className="text-2xl font-bold">Your Drafts</Text>
+          <Text className="text-xl font-bold">Your Drafts</Text>
           {loading ? (
             <View className="flex-1 justify-center items-center">
               <ActivityIndicator size="large" color="#000000" />
@@ -75,18 +75,11 @@ const WriteScreen = ({ navigation }) => {
               <Text className="text-lg text-gray-600">No books found</Text>
             </View>
           ) : (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-              }}
-            >
+            <View className="mt-2">
               {drafts.map((book) => (
                 <TouchableOpacity
                   key={book._id}
-                  className="flex-row mt-4 mb-2 basis-[100%] px-4 py-2 rounded-lg"
+                  className="flex-row mt-4 mb-2 basis-[100%] py-2 rounded-lg"
                   style={{
                     shadowColor: "#000",
                     shadowOffset: { width: 0, height: 2 },
@@ -94,6 +87,10 @@ const WriteScreen = ({ navigation }) => {
                     shadowRadius: 4,
                     elevation: 4,
                   }}
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    navigation.navigate("ContinueWritingScreen", { book })
+                  }
                 >
                   <View className="w-[100px] h-[100px] rounded-lg bg-neutral-200">
                     <Image
@@ -103,18 +100,18 @@ const WriteScreen = ({ navigation }) => {
                   </View>
                   <View className="flex-1 ml-4">
                     <Text className="text-lg font-bold">{book.title}</Text>
-                    <Text className="text-lg text-gray-600">
+                    <Text className="text-base text-gray-600">
                       {book.description}
                     </Text>
                   </View>
                 </TouchableOpacity>
               ))}
-            </ScrollView>
+            </View>
           )}
         </View>
         {/* Published Books */}
         <View>
-          <Text className="text-2xl font-bold">Your Books</Text>
+          <Text className="text-xl font-bold">Your Books</Text>
           {loading ? (
             <View className="flex-1 justify-center items-center">
               <ActivityIndicator size="large" color="#000000" />
@@ -129,18 +126,11 @@ const WriteScreen = ({ navigation }) => {
               <Text className="text-lg text-gray-600">No books found</Text>
             </View>
           ) : (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-              }}
-            >
+            <View className="mt-2">
               {authorsBooks.map((book) => (
                 <TouchableOpacity
                   key={book._id}
-                  className="flex-row mt-4 mb-2 basis-[100%] px-4 py-2 rounded-lg"
+                  className="flex-row mt-4 mb-2 basis-[100%] py-2 rounded-lg"
                   style={{
                     shadowColor: "#000",
                     shadowOffset: { width: 0, height: 2 },
@@ -157,13 +147,13 @@ const WriteScreen = ({ navigation }) => {
                   </View>
                   <View className="flex-1 ml-4">
                     <Text className="text-lg font-bold">{book.title}</Text>
-                    <Text className="text-lg text-gray-600">
+                    <Text className="text-base text-gray-600">
                       {book.description}
                     </Text>
                   </View>
                 </TouchableOpacity>
               ))}
-            </ScrollView>
+            </View>
           )}
         </View>
       </View>

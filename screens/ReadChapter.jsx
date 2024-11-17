@@ -168,18 +168,18 @@ const ReadChapter = ({ route, navigation }) => {
       <View className="mb-6 items-center">
         <View className="w-auto bg-[#FBBC05] shadow-lg p-2 rounded-full flex-row justify-center">
           <TouchableOpacity
-            className="p-3 bg-[#fbf7ef] rounded-full w-10 h-10 items-center mx-4"
+            className="p-2 bg-[#fbf7ef] rounded-full w-10 h-10 items-center mx-4"
             onPress={decreaseFontSize}
           >
-            <Text className="text-lg font-bold">
+            <Text className="text-base font-bold">
               <Icon name="minus" size={20} />
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            className="p-3 bg-[#fbf7ef] rounded-full w-10 h-10 items-center mx-4"
+            className="p-2 bg-[#fbf7ef] rounded-full w-10 h-10 items-center mx-4"
             onPress={increaseFontSize}
           >
-            <Text className="text-lg font-bold">
+            <Text className="text-base font-bold">
               <Icon name="plus" size={20} />
             </Text>
           </TouchableOpacity>

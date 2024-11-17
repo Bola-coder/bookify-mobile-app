@@ -129,8 +129,8 @@ const BookDetails = ({ route }) => {
 
         <View className="mt-5 pb-3 border-neutral-200 items-center">
           <Text
-            className="text-4xl text-[#3a3967] mb-2 text-center"
-            style={{ fontFamily: "Georgia-Bold" }}
+            className="text-2xl text-[#3a3967] mb-2 text-center font-bold"
+            // style={{ fontFamily: "Georgia-Bold" }}
           >
             {bookDetails?.title}
           </Text>
@@ -166,20 +166,20 @@ const BookDetails = ({ route }) => {
         {/* Stats like reads, likes, and reviews */}
         <View className="flex-row justify-between mt-5 w-[80%] self-center">
           <View className="flex items-center">
-            <Text className="text-2xl text-black font-bold">+120</Text>
+            <Text className="text-xl text-black font-bold">+120</Text>
             <Text className="text-lg text-neutral-400 font-normal">
               Readers
             </Text>
           </View>
 
           <View className="flex items-center">
-            <Text className="text-2xl text-black font-bold">
+            <Text className="text-xl text-black font-bold">
               {bookDetails?.likes?.length}
             </Text>
             <Text className="text-lg text-neutral-400 font-normal">Likes</Text>
           </View>
           <View className="flex items-center">
-            <Text className="text-2xl text-black font-bold">200</Text>
+            <Text className="text-xl text-black font-bold">200</Text>
             <Text className="text-lg text-neutral-400 font-normal">
               Reviews
             </Text>
@@ -189,8 +189,8 @@ const BookDetails = ({ route }) => {
         {/* Overview */}
         <View className="mt-5">
           <Text
-            className="text-2xl text-[#3a3967] py-3"
-            style={{ fontFamily: "Georgia-Bold" }}
+            className="text-xl text-[#3a3967] py-3 font-bold"
+            // style={{ fontFamily: "Georgia-Bold" }}
           >
             Overview
           </Text>
@@ -205,8 +205,8 @@ const BookDetails = ({ route }) => {
         {/* Displays Tags  */}
         <View className="mt-5 mb-6">
           <Text
-            className="text-2xl text-[#3a3967] py-3"
-            style={{ fontFamily: "Georgia-Bold" }}
+            className="text-xl text-[#3a3967] py-3 font-bold"
+            // style={{ fontFamily: "Georgia-Bold" }}
           >
             Tags
           </Text>
@@ -216,7 +216,7 @@ const BookDetails = ({ route }) => {
                 key={index}
                 className="bg-[#FBBC05] py-2 px-4 rounded-full mr-2"
               >
-                <Text className="text-lg text-black font-normal">{tag}</Text>
+                <Text className="text-md text-black font-normal">{tag}</Text>
               </View>
             ))}
           </View>
@@ -238,10 +238,18 @@ const BookDetails = ({ route }) => {
       {/* Buttons for Read and Save */}
       <View className="flex-row justify-between mb-10">
         <TouchableOpacity
+          onPress={handleReadBook}
+          className="bg-black py-3 border-2 rounded-full basis-[80%]"
+        >
+          <Text className="text-white text-center text-xl font-bold">
+            Read now
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
             setModalVisible(true);
           }}
-          className="bg-[#FBBC05] py-3 border-2 border-[#FBBC05] rounded-full basis-[45%] flex-row items-center justify-center"
+          className="bg-[#FBBC05] py-3 border-2 border-[#FBBC05] rounded-full basis-[15%] flex-row items-center justify-center"
         >
           <Icon
             name="bookmark-outline"
@@ -251,17 +259,7 @@ const BookDetails = ({ route }) => {
               marginRight: 5,
             }}
           />
-          <Text className="text-black text-center text-2xl font-bold">
-            Save
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleReadBook}
-          className="bg-black py-3 border-2 rounded-full basis-[45%]"
-        >
-          <Text className="text-white text-center text-2xl font-bold">
-            Read now
-          </Text>
+          {/* <Text className="text-black text-center text-xl font-bold">Save</Text> */}
         </TouchableOpacity>
       </View>
 

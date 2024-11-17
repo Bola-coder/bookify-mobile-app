@@ -27,12 +27,12 @@ const HomeScreen = () => {
       {/* Recommended Books */}
       <View className="mt-5">
         <Text
-          className="text-3xl text-black "
+          className="text-2xl text-black "
           style={{ fontFamily: "Georgia-Bold" }}
         >
           Recommended for you
         </Text>
-        <Text className="text-xl text-neutral-500 font-normal">
+        <Text className="text-lg text-neutral-500 font-normal">
           Some great books you might like
         </Text>
         <ScrollView

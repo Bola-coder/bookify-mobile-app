@@ -43,14 +43,14 @@ const SearchScreen = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Search Input */}
         <View className="mt-5">
-          <Text className="text-3xl text-black font-bold">Search</Text>
-          <Text className="text-xl text-neutral-500 font-normal">
+          {/* <Text className="text-3xl text-black font-bold">Search</Text> */}
+          <Text className="text-lg text-neutral-500 font-normal">
             Search for your favorite books
           </Text>
           <View className="flex-row items-center mt-5 border-2 border-neutral-200 rounded-lg">
             <TextInput
               placeholder="Search for books"
-              className="flex-1 text-lg px-3 py-4"
+              className="flex-1 text-md px-3 py-4"
               value={searchQuery}
               onChangeText={(text) => setSearchQuery(text)}
               onSubmitEditing={() => handleSearch(searchQuery)}
@@ -66,8 +66,8 @@ const SearchScreen = () => {
           </View>
         ) : (
           <View className="mt-8">
-            <Text className="text-3xl text-black font-bold">Search Result</Text>
-            <Text className="text-xl text-neutral-500 font-normal">
+            <Text className="text-xl text-black font-bold">Search Result</Text>
+            <Text className="text-lg text-neutral-500 font-normal">
               Showing results for "{searchQuery}"
             </Text>
             {/* Search Result Card */}

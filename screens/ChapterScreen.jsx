@@ -14,7 +14,7 @@ const ChapterScreen = ({ navigation }) => {
 
       {/* Book Title and Description */}
       <View className="p-4 mb-6">
-        <Text className="text-3xl font-bold text-[#]3a3967] text-center mb-2">
+        <Text className="text-2xl font-bold text-[#]3a3967] text-center mb-2">
           {bookDetails?.title}
         </Text>
         <Text className="text-base font-medium text-gray-600 text-center">
@@ -24,7 +24,7 @@ const ChapterScreen = ({ navigation }) => {
 
       {/* Chapter List Heading */}
       <View className="mb-4">
-        <Text className="text-2xl font-semibold text-[#3a3967] text-center">
+        <Text className="text-xl font-semibold text-[#3a3967] text-center">
           Chapters
         </Text>
       </View>
@@ -51,11 +51,11 @@ const Chapter = ({ chapter }) => {
   };
   return (
     <TouchableOpacity
-      className="bg-[#FBBC05] rounded-lg p-4 shadow-sm border border-gray-200 mb-2"
+      className=" rounded-lg p-4 shadow-sm mb-2"
       activeOpacity={0.7}
       onPress={readChapter}
     >
-      <Text className="text-xl font-semibold text-[#3a3967] mb-1">
+      <Text className="text-lg font-semibold text-[#3a3967] mb-1">
         {chapter.title}
       </Text>
     </TouchableOpacity>

@@ -62,7 +62,7 @@ const WriteNewBookModal = ({ modalVisible, onClose, handleSubmit }) => {
         <View className="bg-[#fbf7ef] w-full h-[95%] max-h-[95%] p-4 rounded-3xl border-transparent">
           {/* Header wth a close Icon to the right */}
           <View className="flex-row justify-between items-center p-2 rounded-xl">
-            <Text className="text-2xl font-bold">Write a new story</Text>
+            <Text className="text-xl font-bold">Write a new story</Text>
             <TouchableOpacity onPress={onClose}>
               <Icon name="close" size={24} color="#000" />
             </TouchableOpacity>
@@ -103,7 +103,7 @@ const WriteNewBookModal = ({ modalVisible, onClose, handleSubmit }) => {
 
             <View className="mt-4">
               <View>
-                <Text className="text-lg font-bold">Story Title</Text>
+                <Text className="text-base font-bold">Story Title</Text>
                 <TextInput
                   className="border-[1px] rounded-lg h-[50px] px-3 mt-2"
                   placeholder="Enter story title"
@@ -119,7 +119,7 @@ const WriteNewBookModal = ({ modalVisible, onClose, handleSubmit }) => {
                 ) : null}
               </View>
               <View className="mt-4">
-                <Text className="text-lg font-bold">Description</Text>
+                <Text className="text-base font-bold">Description</Text>
                 <TextInput
                   className="border-[1px] rounded-lg h-[70px] px-3 mt-2"
                   placeholder="Enter story description"
@@ -138,7 +138,7 @@ const WriteNewBookModal = ({ modalVisible, onClose, handleSubmit }) => {
                 ) : null}
               </View>
               <View className="mt-4">
-                <Text className="text-lg font-bold">Summary</Text>
+                <Text className="text-base font-bold">Summary</Text>
                 <TextInput
                   className="border-[1px] rounded-lg h-[150px] px-3 mt-2"
                   multiline={true}
@@ -159,7 +159,7 @@ const WriteNewBookModal = ({ modalVisible, onClose, handleSubmit }) => {
                 activeOpacity={0.7}
                 onPress={formik.handleSubmit}
               >
-                <Text className="text-xl font-bold text-white">Save</Text>
+                <Text className="text-lg font-bold text-white">Save</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>

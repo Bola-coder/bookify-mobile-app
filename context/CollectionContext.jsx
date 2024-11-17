@@ -56,7 +56,6 @@ const CollectionProvider = ({ children }) => {
     axiosInstance
       .get("/collections/" + id)
       .then((res) => {
-        // console.log(res.data.data);
         setCollectionDetails(res.data.data.collection);
       })
       .catch((err) => {

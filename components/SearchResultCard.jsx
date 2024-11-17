@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const SearchResultCard = ({ book }) => {
+  console.log(book);
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -16,6 +17,7 @@ const SearchResultCard = ({ book }) => {
         <Image
           className="w-[100%] rounded-lg"
           source={{ uri: book?.coverImage }}
+          style={{ width: "100%", height: "100%", borderRadius: 10 }}
         />
       </View>
       {/* Title and summary */}

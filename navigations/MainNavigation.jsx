@@ -9,6 +9,7 @@ import BookDetails from "../screens/BookDetails";
 import ChapterScreen from "../screens/ChapterScreen";
 import ReadChapter from "../screens/ReadChapter";
 import CollectionDetailsScreen from "../screens/CollectionDetailsScreen";
+import ContinueWritingScreen from "../screens/ContinueWritingScreen";
 
 const Stack = createNativeStackNavigator();
 const MainNavigation = () => {
@@ -47,6 +48,11 @@ const MainNavigation = () => {
       <Stack.Screen
         name="CollectionDetailsScreen"
         component={CollectionDetailsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ContinueWritingScreen"
+        component={ContinueWritingScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen

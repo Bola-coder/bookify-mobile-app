@@ -45,7 +45,7 @@ const CollectionDetailsScreen = ({ route, navigation }) => {
 
       <ScrollView className="mt-8" showsVerticalScrollIndicator={false}>
         <View className="flex-row justify-between items-center">
-          <Text className="text-3xl text-black font-bold">
+          <Text className="text-2xl text-black font-bold">
             Books in {collectionDetails?.title}
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={handleEmptyCollection}>
@@ -68,7 +68,7 @@ const CollectionDetailsScreen = ({ route, navigation }) => {
             ))
           ) : (
             <View className="flex-1 items-center justify-center mt-6">
-              <Text className="text-xl text-black">
+              <Text className="text-base text-black">
                 No books found in this collection.
               </Text>
             </View>

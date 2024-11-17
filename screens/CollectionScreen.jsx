@@ -71,7 +71,7 @@ const CollectionScreen = () => {
 
       <ScrollView className="mt-8" showsVerticalScrollIndicator={false}>
         <View className="flex-row justify-between items-center">
-          <Text className="text-3xl text-black font-bold">My Collections</Text>
+          <Text className="text-2xl text-black font-bold">My Collections</Text>
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => setModalVisible(true)}
